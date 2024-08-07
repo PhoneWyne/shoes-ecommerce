@@ -1,8 +1,35 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Shoes E-commerce Website Project
+- This is repo for a shoes e-commerce website done for Optimus Fox internship
+- Users: 
+	- Customer
+	- Admin
+	- Guest (?)
+	- handle user authentication, signing up and in, etc after shoes marketplace is done
+- Pages:
+	- Sign in
+	- Sign up
+	- Homepage
+	- Marketplace
+- Modals:
+	- Add, Edit, Delete Shoe (admin)
+	- Cart
+- Backend is mock `db.json`
+	- Two endpoints, with their variables
+		- `users`
+			- `name` for both customer, admin
+			- `email` for both customer, admin
+			- `address` only for customer (?)
+			- `password`
+			- create functioning form first, then separate which field is displayed to which 
+		- `shoes`
+			- `name`
+			- `gender`
+			- `price`
+			- Handle all that before, then handle
+				- `size`
+					- doing in US sizes
+				- `quantity`
+				- `color` (?) //last priority
+- Steps to run code
+	- In root, open terminal, and run `npm server-json`
+	- Open another terminal in root, run `npm run dev`, and paste the link created in browser
