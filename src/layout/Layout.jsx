@@ -1,13 +1,15 @@
-import { Outlet } from 'react-router-dom';
-import { Navbar } from './Backup_Navbar';
-import { Footer } from './Backup_Footer';
+import { Navbar } from "./navbar/Navbar";
+import { Footer } from "./footer/Footer";
 
-export function Layout() {
-  return (
-    <div className='bg-primary text-white min-h-screen'>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </div>
-  );
-}
+export function Layout({ children }) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow container mx-auto p-8">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  
