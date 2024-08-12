@@ -1,13 +1,16 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { routes } from './constants/routes';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HomePage } from './pages/homePage/HomePage';
 
 function App() {
-  const router = createBrowserRouter(routes);
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* Add routes for Marketplace and About Us */}
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
