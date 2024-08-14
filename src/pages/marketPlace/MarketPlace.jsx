@@ -4,6 +4,8 @@ import { ShoeSection } from "../../components/shoeSection/ShoeSection";
 import { CartContext } from "../../contexts/CartContext";
 import { API } from "../../constants/endpoints";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+
 
 export function MarketPlace () {
   const [shoes , setShoes] = useState()

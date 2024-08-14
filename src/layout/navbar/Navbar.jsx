@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export function Navbar() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
@@ -11,6 +12,14 @@ export function Navbar() {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.elements.search.value.trim();
+    setSearchParams({ search: searchTerm });
+  };
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -26,6 +35,22 @@ export function Navbar() {
             About Us
           </Link>
         </div>
+
+        {/* search bar */}
+        <form
+          onSubmit={handleSearch}
+          className="search-bar flex items-center"
+        >
+          <input
+            type="text"
+            placeholder="Search for shoes..."
+            className="px-2 py-1 rounded-l"
+          />
+          <button type="submit" className="bg-blue-500 px-4 py-1 rounded-r">
+            Search
+          </button>
+        </form>
+        {/* cart preview icon */}
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}

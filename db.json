@@ -24,12 +24,6 @@
       "name": "Nike",
       "price": 1234,
       "image": "src/assets/shoes/nike-dunk-retro.png"
-    },
-    {
-      "id": "f601",
-      "name": "Nike",
-      "price": 123,
-      "image": "src/assets/shoes/nike-dunk-retro.png"
     }
   ]
 }
