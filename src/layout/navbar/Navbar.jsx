@@ -43,6 +43,7 @@ export function Navbar() {
         >
           <input
             type="text"
+            name="search"
             placeholder="Search for shoes..."
             className="px-2 py-1 rounded-l"
           />
