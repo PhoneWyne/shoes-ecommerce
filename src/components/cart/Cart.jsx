@@ -1,13 +1,26 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
-
+import { AuthContext } from "../../contexts/AuthContext";
+import { SignIn } from "../signIn/SignIn";
 export function Cart() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext); // Access user from AuthContext
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State to control login modal visibility
+  const [orderPlaced, setOrderPlaced] = useState(false); // State to show order confirmation
 
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+  const handlePlaceOrder = () => {
+    if (!user) {
+      // If no user is logged in, show the login modal
+      setIsLoginModalOpen(true);
+    } else {
+      // If user is logged in, place the order
+      setOrderPlaced(true);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -53,8 +66,16 @@ export function Cart() {
           <div className="text-right font-bold text-xl">
             Total: ${totalPrice}
           </div>
+          <button
+            onClick={handlePlaceOrder}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Place Order
+          </button>
+          {orderPlaced && <p className="text-green-500 mt-4">Order placed successfully!</p>}
         </div>
       )}
+      {isLoginModalOpen && <SignIn onClose={() => setIsLoginModalOpen(false)} />}
     </div>
   );
 }

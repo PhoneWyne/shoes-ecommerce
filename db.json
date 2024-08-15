@@ -1,11 +1,13 @@
 {
   "users": [
     {
+      "id": "1",
       "email": "ahmeduser@gmail.com",
       "password": "sohail12",
-      "role": "user"
+      "role": "customer"
     },
     {
+      "id": "2",
       "email": "ahmedadmin@gmail.com",
       "password": "sohail12",
       "role": "admin"

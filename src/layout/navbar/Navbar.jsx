@@ -1,16 +1,20 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../../contexts/CartContext";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
+import { CartContext } from "../../contexts/CartContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 import { browserRoutes } from "../../constants/routes";
 import { SignIn } from "../../components/signIn/SignIn";
 
 export function Navbar() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const {user, logout} = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isUserLoggedIn , setIsUserLoggedIn] = useState(false);
-  const [isAccountDropdownOpen , setIsAccountDropdownOpen] = useState(false)  
+  // dont need this after switching to using Auth Context
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); 
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cart.reduce(
@@ -28,6 +32,11 @@ export function Navbar() {
       // navigate to marketplace page, with search terms in URL
       navigate(`${browserRoutes.MARKETPLACE}?search=${searchTerm}`);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsAccountDropdownOpen(false);
   };
   return (
     <nav className="bg-gray-800 p-4">
@@ -135,15 +144,47 @@ export function Navbar() {
         </div>
 
         {/* Login Button */}
-        <button
-          onClick={() => setIsLoginModalOpen(true)}
-          className="text-white"
-        >
-          Login
-        </button>
+        {/* Account/Login Button */}
+        {user ? (
+          <div className="relative">
+            <button
+              onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
+              className="text-white"
+            >
+              Account
+            </button>
+            {isAccountDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                <Link
+                  to={browserRoutes.PROFILE}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                >
+                  Account Details
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => setIsLoginModalOpen(true)}
+            className="text-white"
+          >
+            Login
+          </button>
+        )}
 
         {isLoginModalOpen && (
-          <SignIn onClose={() => setIsLoginModalOpen(false)} />
+          <SignIn
+            onClose={() => {
+              setIsLoginModalOpen(false);
+            }}
+          />
         )}
       </div>
     </nav>

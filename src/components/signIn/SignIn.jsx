@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+
 import { API } from "../../constants/endpoints";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export function SignIn({ onClose }) {
   const [isSignup, setIsSignup] = useState(false);
@@ -8,9 +10,12 @@ export function SignIn({ onClose }) {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "user", //default role is user
+    role: "customer", //default role is customer
   });
   const [error, setError] = useState("");
+
+  const { login } = useContext(AuthContext); // use AuthContext here
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -31,6 +36,7 @@ export function SignIn({ onClose }) {
       const user = response.data[0];
       if (user) {
         alert(`${user.email} Logged in as ${user.role}`);
+        login(user);
         onClose();
       } else {
         setError("Invalid email or password");
@@ -110,7 +116,7 @@ export function SignIn({ onClose }) {
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded"
                 >
-                  <option value="user">User</option>
+                  <option value="customer">Customer</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
