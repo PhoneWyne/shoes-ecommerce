@@ -29,7 +29,6 @@ function App() {
               </Layout>
             }
           />
-
           <Route
             path={browserRoutes.CHECKOUT}
             element={
@@ -38,8 +37,16 @@ function App() {
               </Layout>
             }
           />
+          <Route
+            path={browserRoutes.PROFILE}
+            element={
+              <Layout>
+                <></>
+              </Layout>
+            }
+          />
 
-          {/* Add routes for About Us */}
+         
         </Routes>
       </Router>
     </CartProvider>

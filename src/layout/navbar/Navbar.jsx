@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { browserRoutes } from "../../constants/routes";
+import { SignIn } from "../../components/signIn/SignIn";
 
 export function Navbar() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isLoginModalOpen , setIsLoginModalOpen] = useState(false);
-
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isUserLoggedIn , setIsUserLoggedIn] = useState(false);
+  const [isAccountDropdownOpen , setIsAccountDropdownOpen] = useState(false)  
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -46,8 +46,11 @@ export function Navbar() {
           >
             Marketplace
           </Link>
-          <Link to="/about" className="text-white hover:text-gray-300">
-            About Us
+          <Link
+            to={browserRoutes.PROFILE}
+            className="text-white hover:text-gray-300"
+          >
+            Profile
           </Link>
         </div>
 
@@ -131,8 +134,17 @@ export function Navbar() {
           )}
         </div>
 
-        {/* login button */}
-        
+        {/* Login Button */}
+        <button
+          onClick={() => setIsLoginModalOpen(true)}
+          className="text-white"
+        >
+          Login
+        </button>
+
+        {isLoginModalOpen && (
+          <SignIn onClose={() => setIsLoginModalOpen(false)} />
+        )}
       </div>
     </nav>
   );
