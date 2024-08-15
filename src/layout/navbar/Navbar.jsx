@@ -14,11 +14,15 @@ export function Navbar() {
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     e.preventDefault();
     const searchTerm = e.target.elements.search.value.trim();
-    setSearchParams({ search: searchTerm });
+    if (searchTerm) {
+      setSearchParams({ search: searchTerm });
+      // navigate to marketplace page, with search terms in URL
+      navigate(`/marketplace?search=${searchTerm}`);
+    }
   };
   return (
     <nav className="bg-gray-800 p-4">
@@ -37,10 +41,7 @@ export function Navbar() {
         </div>
 
         {/* search bar */}
-        <form
-          onSubmit={handleSearch}
-          className="search-bar flex items-center"
-        >
+        <form onSubmit={handleSearch} className="search-bar flex items-center">
           <input
             type="text"
             name="search"
@@ -51,6 +52,7 @@ export function Navbar() {
             Search
           </button>
         </form>
+
         {/* cart preview icon */}
         <div className="relative">
           <button
@@ -97,6 +99,12 @@ export function Navbar() {
                     </div>
                   ))}
                   <p className="text-right font-bold">Total: ${totalPrice}</p>
+                  <Link
+                    to="/checkout"
+                    className="block mt-4 text-center bg-blue-500 text-white py-2 rounded"
+                  >
+                    Checkout
+                  </Link>
                 </div>
               )}
             </div>

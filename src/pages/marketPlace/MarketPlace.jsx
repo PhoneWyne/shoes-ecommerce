@@ -28,6 +28,7 @@ export function MarketPlace () {
   // Get the search query from the URL
   const searchQuery = searchParams.get('search') || '';
 
+  
   // Filter shoes based on the search query
   const filteredShoes = shoes.filter(shoe => 
     shoe.name.toLowerCase().includes(searchQuery.toLowerCase())
