@@ -17,14 +17,20 @@ export function Checkout() {
       ) : (
         <div className="grid grid-cols-1 gap-4">
           {cart.map((item) => (
-            <div key={item.id} className="flex justify-between items-center border-b pb-4">
+            <div
+              key={item.id}
+              className="flex justify-between items-center border-b pb-4"
+            >
               <div className="flex items-center">
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-16 h-16 mr-4"
                 />
-                <p className="text-lg">{item.name}</p>
+                {/* prevent text from overflowing and breaking column widths */}
+                <p className="text-lg w-40 sm:w-60 break-words whitespace-normal">
+                  {item.name}
+                </p>
               </div>
               <div className="flex items-center">
                 <button

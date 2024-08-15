@@ -3,11 +3,16 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { browserRoutes } from "../../constants/routes";
+
 export function Navbar() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoginModalOpen , setIsLoginModalOpen] = useState(false);
+
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -21,7 +26,7 @@ export function Navbar() {
     if (searchTerm) {
       setSearchParams({ search: searchTerm });
       // navigate to marketplace page, with search terms in URL
-      navigate(`/marketplace?search=${searchTerm}`);
+      navigate(`${browserRoutes.MARKETPLACE}?search=${searchTerm}`);
     }
   };
   return (
@@ -29,10 +34,16 @@ export function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white font-bold text-xl">Insert Logo Later</div>
         <div className="space-x-4">
-          <Link to="/" className="text-white hover:text-gray-300">
+          <Link
+            to={browserRoutes.HOME}
+            className="text-white hover:text-gray-300"
+          >
             Home
           </Link>
-          <Link to="/marketplace" className="text-white hover:text-gray-300">
+          <Link
+            to={browserRoutes.MARKETPLACE}
+            className="text-white hover:text-gray-300"
+          >
             Marketplace
           </Link>
           <Link to="/about" className="text-white hover:text-gray-300">
@@ -59,10 +70,18 @@ export function Navbar() {
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="text-white"
           >
+            {/* use image of cart here instead (?) */}
             Cart ({totalItems})
           </button>
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4">
+              {/* close button */}
+              <button
+                onClick={() => setIsDropdownOpen(false)}
+                className="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700 "
+              >
+                &times;
+              </button>
               {cart.length === 0 ? (
                 <p className="text-center">Cart is Empty</p>
               ) : (
@@ -70,7 +89,7 @@ export function Navbar() {
                   {cart.map((item) => (
                     <div
                       key={item.id}
-                      className="flex justify-between items-center mb-2"
+                      className="flex justify-between items-center mb-2 "
                     >
                       <img
                         src={item.image}
@@ -79,7 +98,7 @@ export function Navbar() {
                       />
                       <div>
                         <p>{item.name}</p>
-                        <div className="flex items-center">
+                        <div className="flex items-center ">
                           <button
                             onClick={() => removeFromCart(item.id)}
                             className="px-2"
@@ -100,8 +119,9 @@ export function Navbar() {
                   ))}
                   <p className="text-right font-bold">Total: ${totalPrice}</p>
                   <Link
-                    to="/checkout"
+                    to={browserRoutes.CHECKOUT}
                     className="block mt-4 text-center bg-blue-500 text-white py-2 rounded"
+                    onClick={() => setIsDropdownOpen(false)} // to close modal after checking out
                   >
                     Checkout
                   </Link>
@@ -110,6 +130,9 @@ export function Navbar() {
             </div>
           )}
         </div>
+
+        {/* login button */}
+        
       </div>
     </nav>
   );

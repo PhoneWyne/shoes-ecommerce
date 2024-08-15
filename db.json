@@ -1,5 +1,16 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "ahmeduser@gmail.com",
+      "password": "sohail12",
+      "role": "user"
+    },
+    {
+      "email": "ahmedadmin@gmail.com",
+      "password": "sohail12",
+      "role": "admin"
+    }
+  ],
   "shoes": [
     {
       "name": "Nike Dunk Low Retro",

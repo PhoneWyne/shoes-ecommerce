@@ -6,6 +6,8 @@ import { MarketPlace } from "./pages/marketPlace/MarketPlace";
 import { Checkout } from "./pages/checkout/Checkout";
 // context
 import { CartProvider } from "./contexts/CartContext";
+// routes
+import { browserRoutes } from "./constants/routes";
 function App() {
   return (
     <CartProvider>
@@ -20,7 +22,7 @@ function App() {
             }
           />
           <Route
-            path="/marketplace"
+            path={browserRoutes.MARKETPLACE}
             element={
               <Layout>
                 <MarketPlace />
@@ -29,7 +31,7 @@ function App() {
           />
 
           <Route
-            path="/checkout"
+            path={browserRoutes.CHECKOUT}
             element={
               <Layout>
                 <Checkout />
