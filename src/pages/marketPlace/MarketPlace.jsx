@@ -91,7 +91,7 @@ export function MarketPlace() {
           </svg>
         </button>
         {isDropdownOpen && (
-          <ul className="absolute text-gray-700 pt-1 bg-white shadow-lg rounded-lg mt-1">
+          <ul className="absolute text-gray-700 pt-1 bg-white shadow-lg rounded-lg mt-1 z-20 ">
             <li
               onClick={() => {
                 setSortOrder("price-low-high");

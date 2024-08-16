@@ -11,6 +11,12 @@
       "email": "ahmedadmin@gmail.com",
       "password": "sohail12",
       "role": "admin"
+    },
+    {
+      "id": "9c57",
+      "email": "ahmedwyne12@gmail.com",
+      "password": "sohail12",
+      "role": "customer"
     }
   ],
   "shoes": [

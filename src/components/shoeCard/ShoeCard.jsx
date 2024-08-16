@@ -13,7 +13,6 @@ import { API } from "../../constants/endpoints";
 import { Modal } from "./Modal";
 import { DeleteModal } from "./DeleteModal";
 
-// fetchShoes is to re-render page without refreshing
 export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
   const { user } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,11 +39,11 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
         alert("There was an error deleting the shoe."); // Display error message
       });
   };
+
   const handleDeleteCancel = () => {
     setIsDeleteModalOpen(false); // Close the delete modal
   };
 
-  // Updated addToCart to handle error display
   const handleAddToCart = async () => {
     try {
       await addToCart(shoe);
@@ -52,26 +51,25 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
       console.log(err.message); // Set the error message
     }
   };
-  return (
-    <div className="card border border-secondary-border rounded-xl border-solid p-2">
-      {/* Out of Stock Overlay */}
 
-      <div>
+  return (
+    <div className=" card border border-secondary-border rounded-xl border-solid p-2">
+      <div className="relative">
         <img className="w-full max-h-[350px]" src={shoe.image} alt="shoe" />
-      </div>
-      <div className="py-2 mt-3 flex justify-between rounded-xl px-3  items-center">
-        <div className="flex flex-col gap-1">
-          {/* <span className='text-xs text-[#A1A1AA]'>Shoe Name</span> */}
-          <div className="text-sm xl:text-base flex gap-1">
-            {parseInt(shoe.quantity) === 0 ? (
-              <p>Out of Stock</p>
-            ) : (
-              <p>{shoe.name}</p>
-            )}
+        {/* Out of Stock Overlay */}
+        {parseInt(shoe.quantity) === 0 && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl text-white text-xl font-bold z-10 pointer-events-none">
+            <span>Out of Stock</span>
           </div>
+        )}
+      </div>
+      <div className="py-2 mt-3 flex justify-between rounded-xl px-3 items-center">
+        <div className="flex flex-col gap-1">
+          
+            <p>{ shoe.name}</p>
+          
         </div>
         <div className="flex flex-col gap-1">
-          {/* <span className="text-xs ">Price</span> */}
           <div className="text-sm xl:text-base flex gap-1 items-center">
             <div className="flex gap-1">
               <span>$</span>
@@ -119,11 +117,13 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
         fetchShoes={fetchShoes}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
+        className="z-20"
       />
       <DeleteModal
         isOpen={isDeleteModalOpen}
         onClose={handleDeleteCancel}
         onConfirm={handleDeleteConfirm}
+        className="z-20"
       />
     </div>
   );

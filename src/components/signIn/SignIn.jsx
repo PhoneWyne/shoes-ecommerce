@@ -53,7 +53,7 @@ export function SignIn({ onClose }) {
       return;
     }
     try {
-      await axios.post(`${API.USER}`, {
+      await axios.post(`${API.USERS_URL}`, {
         email: formData.email,
         password: formData.password,
         role: formData.role,
@@ -66,7 +66,7 @@ export function SignIn({ onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-20">
       <div className="bg-white p-8 rounded shadow-lg w-96">
         <h2 className="text-2xl mb-4">{isSignup ? "Sign Up" : "Log In"}</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
