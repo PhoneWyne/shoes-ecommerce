@@ -6,11 +6,11 @@ import minusIcon from "/src/assets/minus.png";
 import editIcon from "/src/assets/edit.png";
 import deleteIcon from "/src/assets/delete.png";
 
-import { Modal } from "./Modal";
 import { AuthContext } from "../../contexts/AuthContext";
 import { API } from "../../constants/endpoints";
-import { DeleteModal } from "./DeleteModal";
 
+import { Modal } from "./Modal";
+import { DeleteModal } from "./DeleteModal";
 // fetchShoes is to re-render page without refreshing
 export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
   const { user } = useContext(AuthContext);
@@ -40,6 +40,9 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
   const handleDeleteCancel = () => {
     setIsDeleteModalOpen(false); // Close the delete modal
   };
+
+
+
 
   return (
     <div className="card border border-secondary-border rounded-xl border-solid p-2">

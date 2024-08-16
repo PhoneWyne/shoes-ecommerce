@@ -6,7 +6,7 @@ import { ShoeSection } from "../../components/shoeSection/ShoeSection";
 import { CartContext } from "../../contexts/CartContext";
 
 import { API } from "../../constants/endpoints";
-
+import { AddModal } from "../../components/shoeCard/AddModal";
 export function MarketPlace() {
   const { addToCart, removeFromCart } = useContext(CartContext);
 
@@ -53,6 +53,16 @@ export function MarketPlace() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const handleAddClick = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsAddModalOpen(false);
+  };
+
   return (
     <div className="container mx-auto px-4 py-6">
       <h1 className="text-3xl font-bold mb-6">Marketplace</h1>
@@ -79,7 +89,7 @@ export function MarketPlace() {
             />
           </svg>
         </button>
-        {isDropdownOpen && ( 
+        {isDropdownOpen && (
           <ul className="absolute text-gray-700 pt-1 bg-white shadow-lg rounded-lg mt-1">
             <li
               onClick={() => {
@@ -102,7 +112,17 @@ export function MarketPlace() {
           </ul>
         )}
       </div>
-
+      <button
+        onClick={handleAddClick}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Add New Shoe
+      </button>
+      <AddModal
+        isOpen={isAddModalOpen}
+        onClose={handleModalClose}
+        fetchShoes={fetchShoes}
+      />
       <ShoeSection
         shoes={sortedShoes} // Pass sorted shoes to ShoeSection
         addToCart={addToCart}

@@ -6,13 +6,15 @@
 	- Guest (?)
 	- handle user authentication, signing up and in, etc after shoes marketplace is done
 - Pages:
-	- Sign in
-	- Sign up
+	- Checkout
 	- Homepage
 	- Marketplace
+	- Profile
 - Modals:
 	- Add, Edit, Delete Shoe (admin)
 	- Cart
+	- Login
+	- Sign up
 - Backend is mock `db.json`
 	- Two endpoints, with their variables
 		- `users`
@@ -33,3 +35,13 @@
 - Steps to run code
 	- In root, open terminal, and run `npm server-json`
 	- Open another terminal in root, run `npm run dev`, and paste the link created in browser
+
+- Switched from props drilling to CONTEXT API
+
+- Functionality implemented
+	- Login, Signup as customer, admin
+	- admin can edit, delete, or add shoes
+	- Sort by pricing, low-high, or high-low
+	- Searchbar by shoe's name
+	- Account Details editing
+	- Cart preview by use of context api 

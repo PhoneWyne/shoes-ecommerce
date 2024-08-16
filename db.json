@@ -34,6 +34,20 @@
       "image": "src/assets/shoes/nike-pegasus-plus.png",
       "quantity": 10,
       "id": "6a8c"
+    },
+    {
+      "id": "8174",
+      "name": "Nike Air Jordan Retro High",
+      "price": 180,
+      "quantity": 10,
+      "image": "src/assets/shoes/nike-air-jordan-retro-high.png"
+    },
+    {
+      "id": "02e5",
+      "name": "Nike Air Jordan Retro Low",
+      "price": 150,
+      "quantity": 10,
+      "image": "src/assets/shoes/nike-air-jordan-retro-low.png"
     }
   ]
 }
