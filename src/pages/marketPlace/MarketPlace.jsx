@@ -4,12 +4,13 @@ import axios from "axios";
 
 import { ShoeSection } from "../../components/shoeSection/ShoeSection";
 import { CartContext } from "../../contexts/CartContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 import { API } from "../../constants/endpoints";
 import { AddModal } from "../../components/shoeCard/AddModal";
 export function MarketPlace() {
   const { addToCart, removeFromCart } = useContext(CartContext);
-
+  const { user } = useContext(AuthContext);
   const [shoes, setShoes] = useState([]);
   const [searchParams] = useSearchParams();
   const [sortOrder, setSortOrder] = useState("");
@@ -112,12 +113,14 @@ export function MarketPlace() {
           </ul>
         )}
       </div>
-      <button
-        onClick={handleAddClick}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Add New Shoe
-      </button>
+      {user?.role === "admin" && (
+        <button
+          onClick={handleAddClick}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Add New Shoe
+        </button>
+      )}
       <AddModal
         isOpen={isAddModalOpen}
         onClose={handleModalClose}

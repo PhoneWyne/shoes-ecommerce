@@ -31,7 +31,7 @@ export function AddModal({ isOpen, onClose, fetchShoes }) {
       return;
     }
 
-    // Send POST request to add the new shoe
+ 
     axios.post(API.SHOES_URL, { ...formData, price, quantity })
       .then(() => {
         fetchShoes(); // Refresh the list of shoes

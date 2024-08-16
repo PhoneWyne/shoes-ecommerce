@@ -12,10 +12,10 @@ import { API } from "../../constants/endpoints";
 import { Modal } from "./Modal";
 import { DeleteModal } from "./DeleteModal";
 // fetchShoes is to re-render page without refreshing
-export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
+export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
   const { user } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleteModalOpen , setIsDeleteModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -23,26 +23,24 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
 
   const handleDeleteClick = () => {
     setIsDeleteModalOpen(true);
-  }
+  };
 
   const handleDeleteConfirm = () => {
-    axios.delete(`${API.SHOES_URL}/${shoe.id}`)
+    axios
+      .delete(`${API.SHOES_URL}/${shoe.id}`)
       .then(() => {
         fetchShoes(); // Refresh the list of shoes
-        setIsDeleteModalOpen(false); 
-        alert("Shoe has been deleted."); 
+        setIsDeleteModalOpen(false);
+        alert("Shoe has been deleted.");
       })
       .catch((error) => {
         console.error("There was an error deleting the shoe!", error);
         alert("There was an error deleting the shoe."); // Display error message
       });
-  }
+  };
   const handleDeleteCancel = () => {
     setIsDeleteModalOpen(false); // Close the delete modal
   };
-
-
-
 
   return (
     <div className="card border border-secondary-border rounded-xl border-solid p-2">
@@ -70,7 +68,7 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
       <div className="flex justify-between mt-3">
         <button
           onClick={() => removeFromCart(shoe.id)}
-          className="bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 transition-colors"
+          className="bg-gray-400 text-white px-2 py-1 rounded-md hover:bg-gray-500 transition-colors"
         >
           <img src={minusIcon} alt="minus" className="w-4 h-4" />
         </button>
@@ -93,7 +91,7 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes}) {
         )}
         <button
           onClick={() => addToCart(shoe)}
-          className="bg-green-500 text-white px-2 py-1 rounded-full hover:bg-green-600 transition-colors"
+          className="bg-gray-400 text-white px-2 py-1 rounded-md hover:bg-gray-500 transition-colors"
         >
           <img src={plusIcon} alt="plus" className="w-4 h-4" />
         </button>
