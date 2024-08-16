@@ -56,21 +56,18 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
     <div className="card border border-secondary-border rounded-xl border-solid p-2">
       {/* Out of Stock Overlay */}
 
-      <div className="relative">
+      <div>
         <img className="w-full max-h-[350px]" src={shoe.image} alt="shoe" />
-
-        {parseInt(shoe.quantity) === 0 && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl text-white text-xl font-bold z-10 pointer-events-none ">
-            <span>Out of Stock</span>
-          </div>
-        )}
       </div>
       <div className="py-2 mt-3 flex justify-between rounded-xl px-3  items-center">
         <div className="flex flex-col gap-1">
           {/* <span className='text-xs text-[#A1A1AA]'>Shoe Name</span> */}
           <div className="text-sm xl:text-base flex gap-1">
-            {/* <img src={author} alt='author' /> */}
-            <p>{shoe.name}</p>
+            {parseInt(shoe.quantity) === 0 ? (
+              <p>Out of Stock</p>
+            ) : (
+              <p>{shoe.name}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-1">
@@ -95,7 +92,7 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
           <img
             src={editIcon}
             alt="edit"
-            className="w-6 h-6 cursor-pointer ml-2 z-20"
+            className="w-6 h-6 cursor-pointer ml-2"
             onClick={handleEditClick}
           />
         )}
@@ -103,7 +100,7 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
           <img
             src={deleteIcon}
             alt="delete"
-            className="w-6 h-6 cursor-pointer ml-2 z-20"
+            className="w-6 h-6 cursor-pointer ml-2"
             onClick={handleDeleteClick}
           />
         )}
