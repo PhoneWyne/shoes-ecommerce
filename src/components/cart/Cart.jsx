@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { SignIn } from "../signIn/SignIn";
+import axios from "axios";
+import { API } from "../../constants/endpoints";
 export function Cart() {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart, clearCart} = useContext(CartContext);
   const { user } = useContext(AuthContext); // Access user from AuthContext
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State to control login modal visibility
   const [orderPlaced, setOrderPlaced] = useState(false); // State to show order confirmation
@@ -12,13 +14,33 @@ export function Cart() {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (!user) {
       // If no user is logged in, show the login modal
       setIsLoginModalOpen(true);
     } else {
       // If user is logged in, place the order
-      setOrderPlaced(true);
+      try {
+        // Update shoe quantities in the backend
+        for (let item of cart) {
+          const shoeResponse = await axios.get(`${API.SHOES_URL}/${item.id}`);
+          const shoe = shoeResponse.data;
+
+          // Calculate the new quantity
+          const newQuantity = shoe.quantity - item.quantity;
+          if (newQuantity >= 0) {
+            await axios.patch(`${API.SHOES_URL}/${item.id}`, { quantity: newQuantity });
+          } else {
+            console.warn(`Not enough stock for ${item.name}`);
+          }
+        }
+
+        // Clear the cart after placing the order
+        clearCart();
+        setOrderPlaced(true);
+      } catch (error) {
+        console.error("Error placing order:", error);
+      }
     }
   };
 

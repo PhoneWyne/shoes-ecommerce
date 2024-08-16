@@ -7,13 +7,14 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { browserRoutes } from "../../constants/routes";
 import { SignIn } from "../../components/signIn/SignIn";
 
+import shoeIcon from "/src/assets/shoe.png";
 export function Navbar() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  const {user, logout} = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   // dont need this after switching to using Auth Context
-  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); 
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -41,7 +42,14 @@ export function Navbar() {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white font-bold text-xl">Insert Logo Later</div>
+        <div className="text-white font-bold text-xl">
+          <Link
+            to={browserRoutes.HOME}
+            className="text-white hover:text-gray-300"
+          >
+            <img src={shoeIcon} alt="shoe" className="w-12 h-12" />
+          </Link>          
+        </div>
         <div className="space-x-4">
           <Link
             to={browserRoutes.HOME}

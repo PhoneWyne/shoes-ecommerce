@@ -17,7 +17,7 @@
     {
       "name": "Nike Dunk Low Retro",
       "price": "120",
-      "quantity": "11",
+      "quantity": "10",
       "image": "src/assets/shoes/nike-dunk-retro.png",
       "id": "97ee"
     },
@@ -25,14 +25,14 @@
       "name": "Nike Dunk Low SE",
       "price": "120",
       "image": "src/assets/shoes/nike-dunk-SE.png",
-      "quantity": 10,
+      "quantity": 0,
       "id": "ea6c"
     },
     {
       "name": "Nike Pegasus Plus ",
       "price": 180,
       "image": "src/assets/shoes/nike-pegasus-plus.png",
-      "quantity": 10,
+      "quantity": 0,
       "id": "6a8c"
     },
     {

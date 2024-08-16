@@ -6,11 +6,13 @@ import minusIcon from "/src/assets/minus.png";
 import editIcon from "/src/assets/edit.png";
 import deleteIcon from "/src/assets/delete.png";
 
+import { CartContext } from "../../contexts/CartContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { API } from "../../constants/endpoints";
 
 import { Modal } from "./Modal";
 import { DeleteModal } from "./DeleteModal";
+
 // fetchShoes is to re-render page without refreshing
 export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
   const { user } = useContext(AuthContext);
@@ -42,10 +44,26 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
     setIsDeleteModalOpen(false); // Close the delete modal
   };
 
+  // Updated addToCart to handle error display
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(shoe);
+    } catch (err) {
+      console.log(err.message); // Set the error message
+    }
+  };
   return (
     <div className="card border border-secondary-border rounded-xl border-solid p-2">
-      <div>
+      {/* Out of Stock Overlay */}
+
+      <div className="relative">
         <img className="w-full max-h-[350px]" src={shoe.image} alt="shoe" />
+
+        {parseInt(shoe.quantity) === 0 && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl text-white text-xl font-bold z-10 pointer-events-none ">
+            <span>Out of Stock</span>
+          </div>
+        )}
       </div>
       <div className="py-2 mt-3 flex justify-between rounded-xl px-3  items-center">
         <div className="flex flex-col gap-1">
@@ -77,7 +95,7 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
           <img
             src={editIcon}
             alt="edit"
-            className="w-6 h-6 cursor-pointer ml-2"
+            className="w-6 h-6 cursor-pointer ml-2 z-20"
             onClick={handleEditClick}
           />
         )}
@@ -85,17 +103,18 @@ export function ShoeCard({ shoe, addToCart, removeFromCart, fetchShoes }) {
           <img
             src={deleteIcon}
             alt="delete"
-            className="w-6 h-6 cursor-pointer ml-2"
+            className="w-6 h-6 cursor-pointer ml-2 z-20"
             onClick={handleDeleteClick}
           />
         )}
         <button
-          onClick={() => addToCart(shoe)}
+          onClick={handleAddToCart}
           className="bg-gray-400 text-white px-2 py-1 rounded-md hover:bg-gray-500 transition-colors"
         >
           <img src={plusIcon} alt="plus" className="w-4 h-4" />
         </button>
       </div>
+
       <Modal
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
