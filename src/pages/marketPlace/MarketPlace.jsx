@@ -107,6 +107,7 @@ export function MarketPlace() {
         shoes={sortedShoes} // Pass sorted shoes to ShoeSection
         addToCart={addToCart}
         removeFromCart={removeFromCart}
+        fetchShoes={fetchShoes}
       />
     </div>
   );
